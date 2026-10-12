@@ -86,6 +86,27 @@
   --ring: var(--tape-red);
 }
 
+/* Marquee banner palette (light) */
+.marquee-ree {
+  --mq-bg: #fdf3e5;
+  --mq-grid: #f3c3cc;
+  --mq-yellow: #fcd43a;
+  --mq-label-ink: #9c1748;
+  --mq-pink-soft: #f48aac;
+  --mq-hot-pink: #ff3fa4;
+  --mq-hot-pink-2: #ef5f9f;
+  --mq-outline: #ffffff;
+  --mq-mouth: #b3125f;
+  --mq-ink: #1f1a1c;
+  --mq-cursor-stroke: #f48aac;
+}
+
+.dark .marquee-ree {
+  --mq-bg: #1f1f1f;
+  --mq-grid: #e7a2bf;
+  --mq-cursor-stroke: #ffffff;
+}
+
 .dark {
   --background: oklch(0.18 0.02 50);
   --foreground: var(--cream);
