@@ -319,33 +319,51 @@ function Bracket({ style, flip }: { style: CSSProperties; flip?: boolean }) {
   );
 }
 
-function Chip({ children, style }: { children: ReactNode; style: CSSProperties }) {
-  return (
-    <button
-      type="button"
-      className="group cursor-pointer transition-[filter] duration-150 hover:brightness-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b1c22]"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: u(9),
-        padding: 0,
-        border: 0,
-        borderRadius: u(14),
-        background: "#f6e5d7",
-        color: WINE,
-        fontFamily: serif,
-        fontWeight: 600,
-        fontSize: u(13.6),
-        lineHeight: 1,
-        letterSpacing: "0.02em",
-        ...style,
-      }}
-    >
+function Chip({
+  children,
+  style,
+  to,
+}: {
+  children: ReactNode;
+  style: CSSProperties;
+  to?: "/celebrate/five-days";
+}) {
+  const props = {
+    className:
+      "group cursor-pointer no-underline transition-[filter] duration-150 hover:brightness-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b1c22]",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: u(9),
+      padding: 0,
+      border: 0,
+      borderRadius: u(14),
+      background: "#f6e5d7",
+      color: WINE,
+      fontFamily: serif,
+      fontWeight: 600,
+      fontSize: u(13.6),
+      lineHeight: 1,
+      letterSpacing: "0.02em",
+      ...style,
+    } satisfies CSSProperties,
+  };
+  const content = (
+    <>
       {children}
       <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-0.5">
         →
       </span>
+    </>
+  );
+  return to ? (
+    <Link to={to} {...props}>
+      {content}
+    </Link>
+  ) : (
+    <button type="button" {...props}>
+      {content}
     </button>
   );
 }
@@ -416,7 +434,9 @@ function TodaysRead() {
       >
         Most people only celebrate day 3. Here’s what the other 4 are actually about.
       </p>
-      <Chip style={box(17.2, 134.6, 100.2, 26.8)}>3 min read</Chip>
+      <Chip to="/celebrate/five-days" style={box(17.2, 134.6, 100.2, 26.8)}>
+        3 min read
+      </Chip>
       <img
         src={ghatsImg}
         alt="River ghats lined with temples and lamps at sunset."

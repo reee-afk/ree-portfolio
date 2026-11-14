@@ -16,6 +16,7 @@ import { Route as CaseIdRouteImport } from './routes/case/$id'
 import { Route as CelebrateAllSetRouteImport } from './routes/celebrate_.all-set'
 import { Route as CelebrateChecklistRouteImport } from './routes/celebrate_.checklist'
 import { Route as CelebrateFactRouteImport } from './routes/celebrate_.fact'
+import { Route as CelebrateFiveDaysRouteImport } from './routes/celebrate_.five-days'
 import { Route as CelebrateHomeRouteImport } from './routes/celebrate_.home'
 import { Route as CelebratePersonalizeRouteImport } from './routes/celebrate_.personalize'
 import { Route as CelebrateStoryRouteImport } from './routes/celebrate_.story'
@@ -55,6 +56,11 @@ const CelebrateFactRoute = CelebrateFactRouteImport.update({
   path: '/celebrate/fact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelebrateFiveDaysRoute = CelebrateFiveDaysRouteImport.update({
+  id: '/celebrate_/five-days',
+  path: '/celebrate/five-days',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CelebrateHomeRoute = CelebrateHomeRouteImport.update({
   id: '/celebrate_/home',
   path: '/celebrate/home',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/celebrate/all-set': typeof CelebrateAllSetRoute
   '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
+  '/celebrate/five-days': typeof CelebrateFiveDaysRoute
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
   '/celebrate/story': typeof CelebrateStoryRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/celebrate/all-set': typeof CelebrateAllSetRoute
   '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
+  '/celebrate/five-days': typeof CelebrateFiveDaysRoute
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
   '/celebrate/story': typeof CelebrateStoryRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/celebrate_/all-set': typeof CelebrateAllSetRoute
   '/celebrate_/checklist': typeof CelebrateChecklistRoute
   '/celebrate_/fact': typeof CelebrateFactRoute
+  '/celebrate_/five-days': typeof CelebrateFiveDaysRoute
   '/celebrate_/home': typeof CelebrateHomeRoute
   '/celebrate_/personalize': typeof CelebratePersonalizeRoute
   '/celebrate_/story': typeof CelebrateStoryRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/celebrate/all-set'
     | '/celebrate/checklist'
     | '/celebrate/fact'
+    | '/celebrate/five-days'
     | '/celebrate/home'
     | '/celebrate/personalize'
     | '/celebrate/story'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/celebrate/all-set'
     | '/celebrate/checklist'
     | '/celebrate/fact'
+    | '/celebrate/five-days'
     | '/celebrate/home'
     | '/celebrate/personalize'
     | '/celebrate/story'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/celebrate_/all-set'
     | '/celebrate_/checklist'
     | '/celebrate_/fact'
+    | '/celebrate_/five-days'
     | '/celebrate_/home'
     | '/celebrate_/personalize'
     | '/celebrate_/story'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   CelebrateAllSetRoute: typeof CelebrateAllSetRoute
   CelebrateChecklistRoute: typeof CelebrateChecklistRoute
   CelebrateFactRoute: typeof CelebrateFactRoute
+  CelebrateFiveDaysRoute: typeof CelebrateFiveDaysRoute
   CelebrateHomeRoute: typeof CelebrateHomeRoute
   CelebratePersonalizeRoute: typeof CelebratePersonalizeRoute
   CelebrateStoryRoute: typeof CelebrateStoryRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CelebrateFactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celebrate_/five-days': {
+      id: '/celebrate_/five-days'
+      path: '/celebrate/five-days'
+      fullPath: '/celebrate/five-days'
+      preLoaderRoute: typeof CelebrateFiveDaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/celebrate_/home': {
       id: '/celebrate_/home'
       path: '/celebrate/home'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   CelebrateAllSetRoute: CelebrateAllSetRoute,
   CelebrateChecklistRoute: CelebrateChecklistRoute,
   CelebrateFactRoute: CelebrateFactRoute,
+  CelebrateFiveDaysRoute: CelebrateFiveDaysRoute,
   CelebrateHomeRoute: CelebrateHomeRoute,
   CelebratePersonalizeRoute: CelebratePersonalizeRoute,
   CelebrateStoryRoute: CelebrateStoryRoute,
