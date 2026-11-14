@@ -386,9 +386,9 @@ function TodayCard() {
         }}
       />
 
-      <button
-        type="button"
-        className="group cursor-pointer transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
+      <Link
+        to="/celebrate/checklist"
+        className="group cursor-pointer no-underline transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
         style={{
           ...box(20.5, 171.5, 164, 39),
           display: "flex",
@@ -416,16 +416,39 @@ function TodayCard() {
         >
           →
         </span>
-      </button>
+      </Link>
     </section>
+  );
+}
+
+/** A link when it has somewhere to go, otherwise a plain button. */
+function Tappable({
+  to,
+  children,
+  ...rest
+}: {
+  to?: "/celebrate/checklist";
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  "aria-current"?: "page";
+}) {
+  return to ? (
+    <Link to={to} {...rest}>
+      {children}
+    </Link>
+  ) : (
+    <button type="button" {...rest}>
+      {children}
+    </button>
   );
 }
 
 function ModeTile({ tile }: { tile: Tile }) {
   return (
-    <button
-      type="button"
-      className="group cursor-pointer transition-[transform,box-shadow] duration-200 hover:-translate-y-px active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
+    <Tappable
+      to={tile.id === "guide" ? "/celebrate/checklist" : undefined}
+      className="group cursor-pointer no-underline transition-[transform,box-shadow] duration-200 hover:-translate-y-px active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
       style={{
         ...box(tile.left, 596.5, 111.2, 181.8),
         display: "flex",
@@ -496,7 +519,7 @@ function ModeTile({ tile }: { tile: Tile }) {
       >
         <Chevron color={WINE} size={4.2} />
       </span>
-    </button>
+    </Tappable>
   );
 }
 
@@ -523,11 +546,11 @@ function TabBar() {
         const active = t.id === "home";
         const x = [52.5, 147.3, 242.5, 337.9][i];
         return (
-          <button
+          <Tappable
             key={t.id}
-            type="button"
+            to={t.id === "guide" ? "/celebrate/checklist" : undefined}
             aria-current={active ? "page" : undefined}
-            className="cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
+            className="cursor-pointer no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
             style={{
               ...box(x - 36, 6, 72, 56),
               display: "flex",
@@ -565,7 +588,7 @@ function TabBar() {
                 }}
               />
             )}
-          </button>
+          </Tappable>
         );
       })}
       <span

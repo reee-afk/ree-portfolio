@@ -14,6 +14,7 @@ import { Route as CelebrateRouteImport } from './routes/celebrate'
 import { Route as ApiPortfolioGuideRouteImport } from './routes/api/portfolio-guide'
 import { Route as CaseIdRouteImport } from './routes/case/$id'
 import { Route as CelebrateAllSetRouteImport } from './routes/celebrate_.all-set'
+import { Route as CelebrateChecklistRouteImport } from './routes/celebrate_.checklist'
 import { Route as CelebrateFactRouteImport } from './routes/celebrate_.fact'
 import { Route as CelebrateHomeRouteImport } from './routes/celebrate_.home'
 import { Route as CelebratePersonalizeRouteImport } from './routes/celebrate_.personalize'
@@ -43,6 +44,11 @@ const CelebrateAllSetRoute = CelebrateAllSetRouteImport.update({
   path: '/celebrate/all-set',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelebrateChecklistRoute = CelebrateChecklistRouteImport.update({
+  id: '/celebrate_/checklist',
+  path: '/celebrate/checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CelebrateFactRoute = CelebrateFactRouteImport.update({
   id: '/celebrate_/fact',
   path: '/celebrate/fact',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate_/all-set': typeof CelebrateAllSetRoute
+  '/celebrate_/checklist': typeof CelebrateChecklistRoute
   '/celebrate_/fact': typeof CelebrateFactRoute
   '/celebrate_/home': typeof CelebrateHomeRoute
   '/celebrate_/personalize': typeof CelebratePersonalizeRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/checklist'
     | '/celebrate/fact'
     | '/celebrate/home'
     | '/celebrate/personalize'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/checklist'
     | '/celebrate/fact'
     | '/celebrate/home'
     | '/celebrate/personalize'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate_/all-set'
+    | '/celebrate_/checklist'
     | '/celebrate_/fact'
     | '/celebrate_/home'
     | '/celebrate_/personalize'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   ApiPortfolioGuideRoute: typeof ApiPortfolioGuideRoute
   CaseIdRoute: typeof CaseIdRoute
   CelebrateAllSetRoute: typeof CelebrateAllSetRoute
+  CelebrateChecklistRoute: typeof CelebrateChecklistRoute
   CelebrateFactRoute: typeof CelebrateFactRoute
   CelebrateHomeRoute: typeof CelebrateHomeRoute
   CelebratePersonalizeRoute: typeof CelebratePersonalizeRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CelebrateAllSetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celebrate_/checklist': {
+      id: '/celebrate_/checklist'
+      path: '/celebrate/checklist'
+      fullPath: '/celebrate/checklist'
+      preLoaderRoute: typeof CelebrateChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/celebrate_/fact': {
       id: '/celebrate_/fact'
       path: '/celebrate/fact'
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPortfolioGuideRoute: ApiPortfolioGuideRoute,
   CaseIdRoute: CaseIdRoute,
   CelebrateAllSetRoute: CelebrateAllSetRoute,
+  CelebrateChecklistRoute: CelebrateChecklistRoute,
   CelebrateFactRoute: CelebrateFactRoute,
   CelebrateHomeRoute: CelebrateHomeRoute,
   CelebratePersonalizeRoute: CelebratePersonalizeRoute,
