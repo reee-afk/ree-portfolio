@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CelebrateRouteImport } from './routes/celebrate'
 import { Route as ApiPortfolioGuideRouteImport } from './routes/api/portfolio-guide'
 import { Route as CaseIdRouteImport } from './routes/case/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CelebrateRoute = CelebrateRouteImport.update({
+  id: '/celebrate',
+  path: '/celebrate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPortfolioGuideRoute = ApiPortfolioGuideRouteImport.update({
@@ -31,30 +37,34 @@ const CaseIdRoute = CaseIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/portfolio-guide' | '/case/$id'
+  fullPaths: '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/portfolio-guide' | '/case/$id'
-  id: '__root__' | '/' | '/api/portfolio-guide' | '/case/$id'
+  to: '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
+  id: '__root__' | '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CelebrateRoute: typeof CelebrateRoute
   ApiPortfolioGuideRoute: typeof ApiPortfolioGuideRoute
   CaseIdRoute: typeof CaseIdRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/celebrate': {
+      id: '/celebrate'
+      path: '/celebrate'
+      fullPath: '/celebrate'
+      preLoaderRoute: typeof CelebrateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/portfolio-guide': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CelebrateRoute: CelebrateRoute,
   ApiPortfolioGuideRoute: ApiPortfolioGuideRoute,
   CaseIdRoute: CaseIdRoute,
 }
