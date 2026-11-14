@@ -356,9 +356,9 @@ function FactScreen() {
               Shake for another
             </button>
 
-            <button
-              type="button"
-              className="group cursor-pointer transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b5381b]"
+            <Link
+              to="/celebrate/story"
+              className="group cursor-pointer no-underline transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b5381b]"
               style={{
                 ...box(20.2, 589.7, 317.3, 51.5),
                 display: "flex",
@@ -385,7 +385,7 @@ function FactScreen() {
               >
                 →
               </span>
-            </button>
+            </Link>
 
             <RuleWithArch style={box(123.9, 657.9, 110, 12)} small />
           </section>

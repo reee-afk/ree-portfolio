@@ -427,7 +427,7 @@ function Tappable({
   children,
   ...rest
 }: {
-  to?: "/celebrate/checklist";
+  to?: "/celebrate/checklist" | "/celebrate/story";
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -447,7 +447,13 @@ function Tappable({
 function ModeTile({ tile }: { tile: Tile }) {
   return (
     <Tappable
-      to={tile.id === "guide" ? "/celebrate/checklist" : undefined}
+      to={
+        tile.id === "guide"
+          ? "/celebrate/checklist"
+          : tile.id === "story"
+            ? "/celebrate/story"
+            : undefined
+      }
       className="group cursor-pointer no-underline transition-[transform,box-shadow] duration-200 hover:-translate-y-px active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
       style={{
         ...box(tile.left, 596.5, 111.2, 181.8),
@@ -548,7 +554,13 @@ function TabBar() {
         return (
           <Tappable
             key={t.id}
-            to={t.id === "guide" ? "/celebrate/checklist" : undefined}
+            to={
+              t.id === "guide"
+                ? "/celebrate/checklist"
+                : t.id === "story"
+                  ? "/celebrate/story"
+                  : undefined
+            }
             aria-current={active ? "page" : undefined}
             className="cursor-pointer no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
             style={{
