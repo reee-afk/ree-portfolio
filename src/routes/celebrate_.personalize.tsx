@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type CSSProperties, type ReactNode } from "react";
 
 export const Route = createFileRoute("/celebrate_/personalize")({
@@ -275,9 +275,9 @@ function PersonalizeScreen() {
             }}
           >
             <Eye />
-            <button
-              type="button"
-              className="group cursor-pointer transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1c10]"
+            <Link
+              to="/celebrate/all-set"
+              className="group cursor-pointer no-underline transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1c10]"
               style={{
                 width: u(266.7),
                 height: u(51),
@@ -314,13 +314,13 @@ function PersonalizeScreen() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Link>
             <Eye flip />
           </div>
 
           <div style={{ marginTop: u(16.5), textAlign: "center", lineHeight: u(16) }}>
-            <button
-              type="button"
+            <Link
+              to="/celebrate/all-set"
               className="cursor-pointer hover:text-[#7a1c10] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1c10]"
               style={{
                 padding: 0,
@@ -337,7 +337,7 @@ function PersonalizeScreen() {
               }}
             >
               Skip, I’ll explore on my own
-            </button>
+            </Link>
           </div>
 
           <DiyaField />
