@@ -32,6 +32,8 @@ export const Route = createFileRoute("/celebrate_/checklist")({
       },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>): { day?: number } =>
+    Number(search.day) === 3 ? { day: 3 } : {},
   component: ChecklistScreen,
 });
 
@@ -51,7 +53,15 @@ function box(left: number, top: number, width: number, height: number): CSSPrope
   return { position: "absolute", left: u(left), top: u(top), width: u(width), height: u(height) };
 }
 
-type Task = { id: string; title: string; note: string; img: string; alt: string };
+type Task = {
+  id: string;
+  title: string;
+  note: string;
+  img: string;
+  alt: string;
+  /** This step has an Ask Utsav screen. */
+  ask?: boolean;
+};
 
 const DHANTERAS_TASKS: Task[] = [
   {
@@ -130,6 +140,7 @@ const DIWALI_TASKS: Task[] = [
   },
   {
     id: "lamp",
+    ask: true,
     title: "Light the main diya",
     note: "A ghee lamp that stays lit through the night",
     img: lampImg,
@@ -195,7 +206,7 @@ const ROW_H = 79.2;
 const DIYAS = 5;
 
 function ChecklistScreen() {
-  const [day, setDay] = useState(1);
+  const [day, setDay] = useState(Route.useSearch().day ?? 1);
   // Ticks are kept per day, so switching tabs doesn't lose them.
   const [doneByDay, setDoneByDay] = useState<Record<number, Set<string>>>(() => ({
     1: new Set(["utensils", "entrance"]),
@@ -601,7 +612,7 @@ function TaskRow({
           style={{
             position: "absolute",
             left: u(131.3),
-            right: u(12),
+            right: u(task.ask ? 50 : 12),
             top: u(12.5),
             display: "flex",
             flexDirection: "column",
@@ -633,6 +644,34 @@ function TaskRow({
           </span>
         </span>
       </label>
+      {task.ask && (
+        <Link
+          to="/celebrate/ask"
+          aria-label={`Ask Utsav about “${task.title}”`}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="grid cursor-pointer place-items-center transition-transform duration-150 hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8f1d1d]"
+          style={{
+            position: "absolute",
+            right: u(12),
+            top: "50%",
+            width: u(30),
+            height: u(30),
+            transform: "translateY(-50%)",
+            borderRadius: "50%",
+            background: "#f6e9de",
+          }}
+        >
+          <svg viewBox="0 0 12 19" fill="none" aria-hidden style={{ width: u(8.5), height: u(13) }}>
+            <rect x="3.2" y="0.8" width="5.6" height="10.6" rx="2.8" fill={WINE} />
+            <path
+              d="M1 8.5a5 5 0 0 0 10 0M6 13.5v4.5M3.5 18h5"
+              stroke={WINE}
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </Link>
+      )}
     </li>
   );
 }

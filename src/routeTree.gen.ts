@@ -14,6 +14,7 @@ import { Route as CelebrateRouteImport } from './routes/celebrate'
 import { Route as ApiPortfolioGuideRouteImport } from './routes/api/portfolio-guide'
 import { Route as CaseIdRouteImport } from './routes/case/$id'
 import { Route as CelebrateAllSetRouteImport } from './routes/celebrate_.all-set'
+import { Route as CelebrateAskRouteImport } from './routes/celebrate_.ask'
 import { Route as CelebrateChecklistRouteImport } from './routes/celebrate_.checklist'
 import { Route as CelebrateFactRouteImport } from './routes/celebrate_.fact'
 import { Route as CelebrateFiveDaysRouteImport } from './routes/celebrate_.five-days'
@@ -44,6 +45,11 @@ const CaseIdRoute = CaseIdRouteImport.update({
 const CelebrateAllSetRoute = CelebrateAllSetRouteImport.update({
   id: '/celebrate_/all-set',
   path: '/celebrate/all-set',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CelebrateAskRoute = CelebrateAskRouteImport.update({
+  id: '/celebrate_/ask',
+  path: '/celebrate/ask',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CelebrateChecklistRoute = CelebrateChecklistRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/ask': typeof CelebrateAskRoute
   '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
   '/celebrate/five-days': typeof CelebrateFiveDaysRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/ask': typeof CelebrateAskRoute
   '/celebrate/checklist': typeof CelebrateChecklistRoute
   '/celebrate/fact': typeof CelebrateFactRoute
   '/celebrate/five-days': typeof CelebrateFiveDaysRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate_/all-set': typeof CelebrateAllSetRoute
+  '/celebrate_/ask': typeof CelebrateAskRoute
   '/celebrate_/checklist': typeof CelebrateChecklistRoute
   '/celebrate_/fact': typeof CelebrateFactRoute
   '/celebrate_/five-days': typeof CelebrateFiveDaysRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/ask'
     | '/celebrate/checklist'
     | '/celebrate/fact'
     | '/celebrate/five-days'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/ask'
     | '/celebrate/checklist'
     | '/celebrate/fact'
     | '/celebrate/five-days'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate_/all-set'
+    | '/celebrate_/ask'
     | '/celebrate_/checklist'
     | '/celebrate_/fact'
     | '/celebrate_/five-days'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   ApiPortfolioGuideRoute: typeof ApiPortfolioGuideRoute
   CaseIdRoute: typeof CaseIdRoute
   CelebrateAllSetRoute: typeof CelebrateAllSetRoute
+  CelebrateAskRoute: typeof CelebrateAskRoute
   CelebrateChecklistRoute: typeof CelebrateChecklistRoute
   CelebrateFactRoute: typeof CelebrateFactRoute
   CelebrateFiveDaysRoute: typeof CelebrateFiveDaysRoute
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/celebrate/all-set'
       fullPath: '/celebrate/all-set'
       preLoaderRoute: typeof CelebrateAllSetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/celebrate_/ask': {
+      id: '/celebrate_/ask'
+      path: '/celebrate/ask'
+      fullPath: '/celebrate/ask'
+      preLoaderRoute: typeof CelebrateAskRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/celebrate_/checklist': {
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPortfolioGuideRoute: ApiPortfolioGuideRoute,
   CaseIdRoute: CaseIdRoute,
   CelebrateAllSetRoute: CelebrateAllSetRoute,
+  CelebrateAskRoute: CelebrateAskRoute,
   CelebrateChecklistRoute: CelebrateChecklistRoute,
   CelebrateFactRoute: CelebrateFactRoute,
   CelebrateFiveDaysRoute: CelebrateFiveDaysRoute,
