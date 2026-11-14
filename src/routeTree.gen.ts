@@ -14,6 +14,7 @@ import { Route as CelebrateRouteImport } from './routes/celebrate'
 import { Route as ApiPortfolioGuideRouteImport } from './routes/api/portfolio-guide'
 import { Route as CaseIdRouteImport } from './routes/case/$id'
 import { Route as CelebrateAllSetRouteImport } from './routes/celebrate_.all-set'
+import { Route as CelebrateHomeRouteImport } from './routes/celebrate_.home'
 import { Route as CelebratePersonalizeRouteImport } from './routes/celebrate_.personalize'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const CelebrateAllSetRoute = CelebrateAllSetRouteImport.update({
   path: '/celebrate/all-set',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelebrateHomeRoute = CelebrateHomeRouteImport.update({
+  id: '/celebrate_/home',
+  path: '/celebrate/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CelebratePersonalizeRoute = CelebratePersonalizeRouteImport.update({
   id: '/celebrate_/personalize',
   path: '/celebrate/personalize',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate/all-set': typeof CelebrateAllSetRoute
+  '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
   '/celebrate_/all-set': typeof CelebrateAllSetRoute
+  '/celebrate_/home': typeof CelebrateHomeRoute
   '/celebrate_/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRouteTypes {
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/home'
     | '/celebrate/personalize'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate/all-set'
+    | '/celebrate/home'
     | '/celebrate/personalize'
   id:
     | '__root__'
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/api/portfolio-guide'
     | '/case/$id'
     | '/celebrate_/all-set'
+    | '/celebrate_/home'
     | '/celebrate_/personalize'
   fileRoutesById: FileRoutesById
 }
@@ -105,6 +117,7 @@ export interface RootRouteChildren {
   ApiPortfolioGuideRoute: typeof ApiPortfolioGuideRoute
   CaseIdRoute: typeof CaseIdRoute
   CelebrateAllSetRoute: typeof CelebrateAllSetRoute
+  CelebrateHomeRoute: typeof CelebrateHomeRoute
   CelebratePersonalizeRoute: typeof CelebratePersonalizeRoute
 }
 
@@ -145,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CelebrateAllSetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celebrate_/home': {
+      id: '/celebrate_/home'
+      path: '/celebrate/home'
+      fullPath: '/celebrate/home'
+      preLoaderRoute: typeof CelebrateHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/celebrate_/personalize': {
       id: '/celebrate_/personalize'
       path: '/celebrate/personalize'
@@ -161,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPortfolioGuideRoute: ApiPortfolioGuideRoute,
   CaseIdRoute: CaseIdRoute,
   CelebrateAllSetRoute: CelebrateAllSetRoute,
+  CelebrateHomeRoute: CelebrateHomeRoute,
   CelebratePersonalizeRoute: CelebratePersonalizeRoute,
 }
 export const routeTree = rootRouteImport
