@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 
 import diwaliArt from "@/assets/festival-diwali.webp";
@@ -211,9 +211,9 @@ function CelebrateScreen() {
           </button>
 
           {/* Primary action */}
-          <button
-            type="button"
-            className="group cursor-pointer transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3cf8a]"
+          <Link
+            to="/celebrate/personalize"
+            className="group cursor-pointer no-underline transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3cf8a]"
             style={{
               ...box(24, 771, 341.5, 57),
               display: "flex",
@@ -235,6 +235,7 @@ function CelebrateScreen() {
               fontSize: u(20.5),
               letterSpacing: "0.045em",
               lineHeight: 1,
+              boxSizing: "border-box",
             }}
           >
             <span>Let’s Begin</span>
@@ -253,7 +254,7 @@ function CelebrateScreen() {
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </Link>
 
           {/* Footer line */}
           <p
