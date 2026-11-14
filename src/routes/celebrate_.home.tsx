@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 
 import { Garland } from "@/components/utsav/Garland";
@@ -183,9 +183,9 @@ function HomeScreen() {
           ))}
 
           {/* Shake for a fact */}
-          <button
-            type="button"
-            className="group cursor-pointer text-left transition-[filter,transform] duration-200 hover:brightness-115 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e3b65c]"
+          <Link
+            to="/celebrate/fact"
+            className="group block cursor-pointer text-left no-underline transition-[filter,transform] duration-200 hover:brightness-115 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e3b65c]"
             style={{
               ...box(16.3, 795.5, 356.7, 57.3),
               padding: 0,
@@ -271,7 +271,7 @@ function HomeScreen() {
             >
               <Chevron color="#e8c27a" size={5.5} />
             </span>
-          </button>
+          </Link>
 
           <Ridges />
           <TabBar />
