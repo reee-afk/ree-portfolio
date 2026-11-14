@@ -9,6 +9,15 @@ import duskImg from "@/assets/checklist/dusk.webp";
 import pujaImg from "@/assets/checklist/puja.webp";
 import marigoldImg from "@/assets/checklist/marigold.webp";
 import familyImg from "@/assets/checklist/family.webp";
+import altarImg from "@/assets/checklist/altar.webp";
+import idolImg from "@/assets/checklist/idol.webp";
+import lampImg from "@/assets/checklist/lamp.webp";
+import garlandImg from "@/assets/checklist/garland.webp";
+import bhogImg from "@/assets/checklist/bhog.webp";
+import waterImg from "@/assets/checklist/water.webp";
+import aartiImg from "@/assets/checklist/aarti.webp";
+import bellImg from "@/assets/checklist/bell.webp";
+import prasadImg from "@/assets/checklist/prasad.webp";
 
 export const Route = createFileRoute("/celebrate_/checklist")({
   head: () => ({
@@ -44,7 +53,7 @@ function box(left: number, top: number, width: number, height: number): CSSPrope
 
 type Task = { id: string; title: string; note: string; img: string; alt: string };
 
-const TASKS: Task[] = [
+const DHANTERAS_TASKS: Task[] = [
   {
     id: "utensils",
     title: "Buy new utensils or gold",
@@ -103,6 +112,75 @@ const TASKS: Task[] = [
   },
 ];
 
+/** Day 3: the Lakshmi puja, in the order it is performed. */
+const DIWALI_TASKS: Task[] = [
+  {
+    id: "altar",
+    title: "Clean the puja altar",
+    note: "Wipe it down and spread a fresh red cloth",
+    img: altarImg,
+    alt: "A woman wiping down a carved wooden altar.",
+  },
+  {
+    id: "idol",
+    title: "Place the Lakshmi idol",
+    note: "Seat her on a raised stand, framed by lamps",
+    img: idolImg,
+    alt: "A Lakshmi idol on a lotus, between brass lamps.",
+  },
+  {
+    id: "lamp",
+    title: "Light the main diya",
+    note: "A ghee lamp that stays lit through the night",
+    img: lampImg,
+    alt: "A hand lighting a brass lamp.",
+  },
+  {
+    id: "garland",
+    title: "Offer a marigold garland",
+    note: "Drape it over the idol with both hands",
+    img: garlandImg,
+    alt: "Hands placing a marigold garland on the Lakshmi idol.",
+  },
+  {
+    id: "bhog",
+    title: "Arrange sweets and fruit",
+    note: "Laddoos, pedas, bananas and pomegranate",
+    img: bhogImg,
+    alt: "Plates of laddoos and pedas beside bananas and fruit.",
+  },
+  {
+    id: "water",
+    title: "Sprinkle holy water",
+    note: "Purify the space with water from the kalash",
+    img: waterImg,
+    alt: "A hand sprinkling water beside a brass kalash.",
+  },
+  {
+    id: "aarti",
+    title: "Perform the aarti",
+    note: "Circle the lamp clockwise as you sing",
+    img: aartiImg,
+    alt: "A woman circling a lit aarti lamp before the idol.",
+  },
+  {
+    id: "bell",
+    title: "Ring the bell",
+    note: "Keep it ringing through the aarti",
+    img: bellImg,
+    alt: "A hand ringing a brass temple bell.",
+  },
+  {
+    id: "prasad",
+    title: "Share the prasad",
+    note: "Offer it to everyone with both hands",
+    img: prasadImg,
+    alt: "Hands passing a bowl of prasad.",
+  },
+];
+
+const TASKS_BY_DAY: Record<number, Task[]> = { 1: DHANTERAS_TASKS, 3: DIWALI_TASKS };
+
 const DAYS = [
   { n: 1, name: "Dhanteras" },
   { n: 2, name: "Naraka Ch." },
@@ -117,36 +195,50 @@ const ROW_H = 79.2;
 const DIYAS = 5;
 
 function ChecklistScreen() {
-  const [done, setDone] = useState<Set<string>>(() => new Set(["utensils", "entrance"]));
+  const [day, setDay] = useState(1);
+  // Ticks are kept per day, so switching tabs doesn't lose them.
+  const [doneByDay, setDoneByDay] = useState<Record<number, Set<string>>>(() => ({
+    1: new Set(["utensils", "entrance"]),
+    3: new Set(),
+  }));
+  const tasks = TASKS_BY_DAY[day];
+  const done = doneByDay[day];
   const toggle = (id: string) =>
-    setDone((prev) => {
-      const next = new Set(prev);
+    setDoneByDay((prev) => {
+      const next = new Set(prev[day]);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      return next;
+      return { ...prev, [day]: next };
     });
 
   const count = done.size;
-  const lit = Math.floor((count * DIYAS) / TASKS.length);
+  const lit = Math.floor((count * DIYAS) / tasks.length);
+  // Everything below the list moves down by one row per task beyond eight.
+  const extra = (tasks.length - 8) * ROW_STEP;
+  const dayName = DAYS[day - 1].name;
 
   return (
     <main className="flex min-h-screen items-start justify-center bg-white sm:py-10">
       <div
         className="relative w-full max-w-[390px] overflow-hidden sm:shadow-[0_30px_60px_-20px_rgba(60,30,10,0.3),0_8px_24px_rgba(60,30,10,0.1)]"
-        style={{ aspectRatio: "390 / 1487", containerType: "inline-size", background: "#fbf6ee" }}
+        style={{
+          aspectRatio: `390 / ${1487 + extra}`,
+          containerType: "inline-size",
+          background: "#fbf6ee",
+        }}
       >
         <div
           className="absolute inset-0"
           style={{ ["--u" as string]: "calc(100cqw / 390)", color: INK }}
         >
-          <Header />
+          <Header dayName={dayName} day={day} />
 
           {/* Progress */}
           <div
             role="progressbar"
             aria-label="Today's tasks"
             aria-valuemin={0}
-            aria-valuemax={TASKS.length}
+            aria-valuemax={tasks.length}
             aria-valuenow={count}
             style={{
               ...box(65.3, 249, 260.2, 29.3),
@@ -168,7 +260,7 @@ function ChecklistScreen() {
                 style={{
                   display: "block",
                   height: "100%",
-                  width: `${(count / TASKS.length) * 100}%`,
+                  width: `${(count / tasks.length) * 100}%`,
                   borderRadius: u(4),
                   background: "linear-gradient(90deg, #c0392b 0%, #a32a1a 100%)",
                   transition: "width 0.3s ease",
@@ -191,14 +283,14 @@ function ChecklistScreen() {
                 fontVariantNumeric: "tabular-nums",
               }}
             >
-              {count} of {TASKS.length} tasks done
+              {count} of {tasks.length} tasks done
             </span>
           </div>
 
-          <DayTabs />
+          <DayTabs day={day} onSelect={setDay} />
 
-          <ul aria-label="Dhanteras tasks" style={{ margin: 0, padding: 0, listStyle: "none" }}>
-            {TASKS.map((t, i) => (
+          <ul aria-label={`${dayName} tasks`} style={{ margin: 0, padding: 0, listStyle: "none" }}>
+            {tasks.map((t, i) => (
               <TaskRow
                 key={t.id}
                 task={t}
@@ -209,16 +301,16 @@ function ChecklistScreen() {
             ))}
           </ul>
 
-          <HintBar />
-          <DiyaTracker lit={lit} />
-          <TabBar />
+          <HintBar offset={extra} />
+          <DiyaTracker lit={lit} offset={extra} />
+          <TabBar offset={extra} />
         </div>
       </div>
     </main>
   );
 }
 
-function Header() {
+function Header({ day, dayName }: { day: number; dayName: string }) {
   return (
     <>
       {/* Warm glow and the scalloped arch above it */}
@@ -305,7 +397,7 @@ function Header() {
           lineHeight: u(24),
         }}
       >
-        Day 1 of 5 — <span style={{ color: WINE }}>Dhanteras</span>
+        Day {day} of 5 — <span style={{ color: WINE }}>{dayName}</span>
       </p>
 
       <svg viewBox="0 0 146 12" fill="none" aria-hidden style={box(122, 219, 146, 12)}>
@@ -319,7 +411,7 @@ function Header() {
   );
 }
 
-function DayTabs() {
+function DayTabs({ day, onSelect }: { day: number; onSelect: (day: number) => void }) {
   return (
     <div
       role="tablist"
@@ -332,7 +424,8 @@ function DayTabs() {
       }}
     >
       {DAYS.map((d, i) => {
-        const active = d.n === 1;
+        const active = d.n === day;
+        const ready = d.n in TASKS_BY_DAY;
         const cx = [54.2, 124.5, 195.2, 266.2, 337][i] - 17.7;
         return (
           <button
@@ -340,9 +433,10 @@ function DayTabs() {
             type="button"
             role="tab"
             aria-selected={active}
-            aria-disabled={!active}
-            title={active ? undefined : `Day ${d.n} opens on ${d.name}`}
-            className={active ? "cursor-default" : "cursor-not-allowed"}
+            aria-disabled={!ready}
+            title={ready ? undefined : `Day ${d.n} opens on ${d.name}`}
+            onClick={() => ready && onSelect(d.n)}
+            className={active ? "cursor-default" : ready ? "cursor-pointer" : "cursor-not-allowed"}
             style={{
               ...box(cx - 32, 4.9, 64, 52.9),
               display: "flex",
@@ -543,12 +637,12 @@ function TaskRow({
   );
 }
 
-function HintBar() {
+function HintBar({ offset }: { offset: number }) {
   return (
     <div
       aria-hidden
       style={{
-        ...box(17.7, 1120.2, 355.3, 53.7),
+        ...box(17.7, 1120.2 + offset, 355.3, 53.7),
         borderRadius: u(16),
         border: `${u(1)} solid #e8d6b6`,
         background: "#f3e6d2",
@@ -627,12 +721,12 @@ function Bracket({ style, rot }: { style: CSSProperties; rot: number }) {
   );
 }
 
-function DiyaTracker({ lit }: { lit: number }) {
+function DiyaTracker({ lit, offset }: { lit: number; offset: number }) {
   return (
     <section
       aria-label={`${lit} of ${DIYAS} diyas lit`}
       style={{
-        ...box(17.7, 1183, 355.3, 183.4),
+        ...box(17.7, 1183 + offset, 355.3, 183.4),
         borderRadius: u(20),
         border: `${u(1)} solid #ecdbbd`,
         background: "radial-gradient(70% 60% at 50% 35%, #fffcf4 0%, #f8eedd 100%)",
@@ -764,12 +858,12 @@ const TABS: { id: string; label: string; icon: ReactNode; to?: "/celebrate/home"
   { id: "food", label: "Food", icon: <FoodTab /> },
 ];
 
-function TabBar() {
+function TabBar({ offset }: { offset: number }) {
   return (
     <nav
       aria-label="Utsav"
       style={{
-        ...box(0, 1401.4, 390, 85.6),
+        ...box(0, 1401.4 + offset, 390, 85.6),
         borderTop: `${u(1)} solid #e9dcc6`,
         background: "#f7f1e8",
       }}
