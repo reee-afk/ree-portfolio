@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CelebrateRouteImport } from './routes/celebrate'
 import { Route as ApiPortfolioGuideRouteImport } from './routes/api/portfolio-guide'
 import { Route as CaseIdRouteImport } from './routes/case/$id'
+import { Route as CelebratePersonalizeRouteImport } from './routes/celebrate_.personalize'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const CaseIdRoute = CaseIdRouteImport.update({
   path: '/case/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelebratePersonalizeRoute = CelebratePersonalizeRouteImport.update({
+  id: '/celebrate_/personalize',
+  path: '/celebrate/personalize',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
+  '/celebrate/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
+  '/celebrate/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,30 @@ export interface FileRoutesById {
   '/celebrate': typeof CelebrateRoute
   '/api/portfolio-guide': typeof ApiPortfolioGuideRoute
   '/case/$id': typeof CaseIdRoute
+  '/celebrate_/personalize': typeof CelebratePersonalizeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
+  fullPaths:
+    | '/'
+    | '/celebrate'
+    | '/api/portfolio-guide'
+    | '/case/$id'
+    | '/celebrate/personalize'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
-  id: '__root__' | '/' | '/celebrate' | '/api/portfolio-guide' | '/case/$id'
+  to:
+    | '/'
+    | '/celebrate'
+    | '/api/portfolio-guide'
+    | '/case/$id'
+    | '/celebrate/personalize'
+  id:
+    | '__root__'
+    | '/'
+    | '/celebrate'
+    | '/api/portfolio-guide'
+    | '/case/$id'
+    | '/celebrate_/personalize'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +92,7 @@ export interface RootRouteChildren {
   CelebrateRoute: typeof CelebrateRoute
   ApiPortfolioGuideRoute: typeof ApiPortfolioGuideRoute
   CaseIdRoute: typeof CaseIdRoute
+  CelebratePersonalizeRoute: typeof CelebratePersonalizeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celebrate_/personalize': {
+      id: '/celebrate_/personalize'
+      path: '/celebrate/personalize'
+      fullPath: '/celebrate/personalize'
+      preLoaderRoute: typeof CelebratePersonalizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   CelebrateRoute: CelebrateRoute,
   ApiPortfolioGuideRoute: ApiPortfolioGuideRoute,
   CaseIdRoute: CaseIdRoute,
+  CelebratePersonalizeRoute: CelebratePersonalizeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
