@@ -58,7 +58,20 @@ function CelebrateScreen() {
             src={diwaliArt}
             alt="A woman in an orange sari lighting diyas around a flower rangoli on a marble terrace, overlooking a river city glowing with lamps."
             className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "60% 50%" }}
             draggable={false}
+          />
+          {/* Cream haze behind the title, and a soft dusk behind the footer line. */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: [
+                "radial-gradient(75% 22% at 50% 15%, rgba(252, 244, 230, 0.82) 0%, rgba(252, 244, 230, 0.55) 55%, rgba(252, 244, 230, 0) 100%)",
+                "linear-gradient(180deg, rgba(252, 244, 230, 0.5) 0%, rgba(252, 244, 230, 0) 32%, rgba(40, 15, 5, 0) 82%, rgba(40, 15, 5, 0.55) 100%)",
+              ].join(", "),
+            }}
           />
 
           {/* Crest */}
