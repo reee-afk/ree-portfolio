@@ -894,12 +894,12 @@ const TABS: {
   id: string;
   label: string;
   icon: ReactNode;
-  to?: "/celebrate/home" | "/celebrate/story";
+  to?: "/celebrate/home" | "/celebrate/story" | "/celebrate/food";
 }[] = [
   { id: "home", label: "Home", icon: <HomeTab />, to: "/celebrate/home" },
   { id: "guide", label: "Guide", icon: <GuideTab /> },
   { id: "story", label: "Story", icon: <StoryTab />, to: "/celebrate/story" },
-  { id: "food", label: "Food", icon: <FoodTab /> },
+  { id: "food", label: "Food", icon: <FoodTab />, to: "/celebrate/food" },
 ];
 
 function TabBar({ offset }: { offset: number }) {

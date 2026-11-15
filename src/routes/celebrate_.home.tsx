@@ -421,13 +421,23 @@ function TodayCard() {
   );
 }
 
+/** Where each mode tile and tab leads; Home has no target from the home screen. */
+const TARGETS: Record<
+  string,
+  "/celebrate/checklist" | "/celebrate/story" | "/celebrate/food" | undefined
+> = {
+  guide: "/celebrate/checklist",
+  story: "/celebrate/story",
+  food: "/celebrate/food",
+};
+
 /** A link when it has somewhere to go, otherwise a plain button. */
 function Tappable({
   to,
   children,
   ...rest
 }: {
-  to?: "/celebrate/checklist" | "/celebrate/story";
+  to?: "/celebrate/checklist" | "/celebrate/story" | "/celebrate/food";
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -447,13 +457,7 @@ function Tappable({
 function ModeTile({ tile }: { tile: Tile }) {
   return (
     <Tappable
-      to={
-        tile.id === "guide"
-          ? "/celebrate/checklist"
-          : tile.id === "story"
-            ? "/celebrate/story"
-            : undefined
-      }
+      to={TARGETS[tile.id]}
       className="group cursor-pointer no-underline transition-[transform,box-shadow] duration-200 hover:-translate-y-px active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
       style={{
         ...box(tile.left, 596.5, 111.2, 181.8),
@@ -554,13 +558,7 @@ function TabBar() {
         return (
           <Tappable
             key={t.id}
-            to={
-              t.id === "guide"
-                ? "/celebrate/checklist"
-                : t.id === "story"
-                  ? "/celebrate/story"
-                  : undefined
-            }
+            to={TARGETS[t.id]}
             aria-current={active ? "page" : undefined}
             className="cursor-pointer no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8a1a1c]"
             style={{

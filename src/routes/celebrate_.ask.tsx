@@ -638,13 +638,13 @@ function MicIcon({ color, style }: { color: string; style: CSSProperties }) {
   );
 }
 
-type TabTarget = "/celebrate/home" | "/celebrate/story";
+type TabTarget = "/celebrate/home" | "/celebrate/story" | "/celebrate/food";
 
 const TABS: { id: string; label: string; icon: ReactNode; to?: TabTarget }[] = [
   { id: "home", label: "Home", icon: <HomeTab />, to: "/celebrate/home" },
   { id: "guide", label: "Guide", icon: <GuideTab /> },
   { id: "story", label: "Story", icon: <StoryTab />, to: "/celebrate/story" },
-  { id: "food", label: "Food", icon: <FoodTab /> },
+  { id: "food", label: "Food", icon: <FoodTab />, to: "/celebrate/food" },
 ];
 
 function TabBar() {
