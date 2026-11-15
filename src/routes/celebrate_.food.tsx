@@ -310,28 +310,37 @@ function Hero() {
   );
 }
 
-function Pill({ children, style }: { children: ReactNode; style: CSSProperties }) {
-  return (
-    <button
-      type="button"
-      className="group cursor-pointer transition-[filter] duration-150 hover:brightness-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b1c22]"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: u(6),
-        padding: 0,
-        borderRadius: u(15),
-        border: "1px solid #ecc9bd",
-        background: "#fbeae3",
-        color: WINE,
-        fontFamily: sans,
-        fontWeight: 500,
-        fontSize: u(12.8),
-        lineHeight: 1,
-        ...style,
-      }}
-    >
+function Pill({
+  children,
+  style,
+  to,
+}: {
+  children: ReactNode;
+  style: CSSProperties;
+  to?: "/celebrate/recipe";
+}) {
+  const props = {
+    className:
+      "group cursor-pointer no-underline transition-[filter] duration-150 hover:brightness-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b1c22]",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: u(6),
+      padding: 0,
+      borderRadius: u(15),
+      border: "1px solid #ecc9bd",
+      background: "#fbeae3",
+      color: WINE,
+      fontFamily: sans,
+      fontWeight: 500,
+      fontSize: u(12.8),
+      lineHeight: 1,
+      ...style,
+    } satisfies CSSProperties,
+  };
+  const content = (
+    <>
       {children}
       <span
         aria-hidden
@@ -340,6 +349,15 @@ function Pill({ children, style }: { children: ReactNode; style: CSSProperties }
       >
         →
       </span>
+    </>
+  );
+  return to ? (
+    <Link to={to} {...props}>
+      {content}
+    </Link>
+  ) : (
+    <button type="button" {...props}>
+      {content}
     </button>
   );
 }
@@ -432,7 +450,9 @@ function TodaysDish() {
         The crispy, flaky snack made fresh before Diwali — served with pickle and chai, eaten while
         decorating the house.
       </p>
-      <Pill style={box(16.5, 187.5, 104.6, 28.5)}>See recipe</Pill>
+      <Pill to="/celebrate/recipe" style={box(16.5, 187.5, 104.6, 28.5)}>
+        See recipe
+      </Pill>
       <img
         src={mathriImg}
         alt="A brass plate of mathri beside a glass of chai."
