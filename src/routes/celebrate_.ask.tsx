@@ -560,9 +560,9 @@ function Answer() {
         you signal to Lakshmi which way to enter. Your grandmother probably did it without thinking
         — now you know why.
       </p>
-      <button
-        type="button"
-        className="group cursor-pointer transition-[background-color] duration-150 hover:bg-[#fff8ec] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#97191f]"
+      <Link
+        to="/celebrate/step"
+        className="group cursor-pointer no-underline transition-[background-color] duration-150 hover:bg-[#fff8ec] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#97191f]"
         style={{
           ...box(17.7, 199.6, 313.4, 40),
           display: "flex",
@@ -585,7 +585,7 @@ function Answer() {
           style={{ width: u(11), height: u(10) }}
           className="transition-transform duration-150 group-hover:translate-x-0.5"
         />
-      </button>
+      </Link>
     </section>
   );
 }

@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 
 import utensilsImg from "@/assets/checklist/utensils.webp";
 import entranceImg from "@/assets/checklist/entrance.webp";
@@ -32,8 +39,10 @@ export const Route = createFileRoute("/celebrate_/checklist")({
       },
     ],
   }),
-  validateSearch: (search: Record<string, unknown>): { day?: number } =>
-    Number(search.day) === 3 ? { day: 3 } : {},
+  validateSearch: (search: Record<string, unknown>): { day?: number; done?: string } => ({
+    ...(Number(search.day) === 3 ? { day: 3 } : {}),
+    ...(typeof search.done === "string" ? { done: search.done } : {}),
+  }),
   component: ChecklistScreen,
 });
 
@@ -206,11 +215,13 @@ const ROW_H = 79.2;
 const DIYAS = 5;
 
 function ChecklistScreen() {
-  const [day, setDay] = useState(Route.useSearch().day ?? 1);
+  const search = Route.useSearch();
+  const [day, setDay] = useState(search.day ?? 1);
   // Ticks are kept per day, so switching tabs doesn't lose them.
   const [doneByDay, setDoneByDay] = useState<Record<number, Set<string>>>(() => ({
     1: new Set(["utensils", "entrance"]),
-    3: new Set(),
+    // Arriving from "Mark this step done" ticks that step.
+    3: new Set(search.done ? [search.done] : []),
   }));
   const tasks = TASKS_BY_DAY[day];
   const done = doneByDay[day];
@@ -227,6 +238,17 @@ function ChecklistScreen() {
   // Everything below the list moves down by one row per task beyond eight.
   const extra = (tasks.length - 8) * ROW_STEP;
   const dayName = DAYS[day - 1].name;
+
+  // Arriving with #step-N (Previous / Next step on the step guide) brings that row into view.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!/^step-\d+$/.test(id)) return;
+    // Wait a frame so this runs after the router's own jump to the hash.
+    const frame = requestAnimationFrame(() =>
+      document.getElementById(id)?.scrollIntoView({ block: "center" }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   return (
     <main className="flex min-h-screen items-start justify-center bg-white sm:py-10">
@@ -305,6 +327,7 @@ function ChecklistScreen() {
               <TaskRow
                 key={t.id}
                 task={t}
+                index={i}
                 top={ROW_TOP + i * ROW_STEP}
                 checked={done.has(t.id)}
                 onToggle={() => toggle(t.id)}
@@ -507,11 +530,13 @@ function DayTabs({ day, onSelect }: { day: number; onSelect: (day: number) => vo
 
 function TaskRow({
   task,
+  index,
   top,
   checked,
   onToggle,
 }: {
   task: Task;
+  index: number;
   top: number;
   checked: boolean;
   onToggle: () => void;
@@ -542,6 +567,7 @@ function TaskRow({
 
   return (
     <li
+      id={`step-${index + 1}`}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerEnd}

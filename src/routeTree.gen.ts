@@ -22,6 +22,7 @@ import { Route as CelebrateFoodRouteImport } from './routes/celebrate_.food'
 import { Route as CelebrateHomeRouteImport } from './routes/celebrate_.home'
 import { Route as CelebratePersonalizeRouteImport } from './routes/celebrate_.personalize'
 import { Route as CelebrateRecipeRouteImport } from './routes/celebrate_.recipe'
+import { Route as CelebrateStepRouteImport } from './routes/celebrate_.step'
 import { Route as CelebrateStoryRouteImport } from './routes/celebrate_.story'
 
 const IndexRoute = IndexRouteImport.update({
@@ -89,6 +90,11 @@ const CelebrateRecipeRoute = CelebrateRecipeRouteImport.update({
   path: '/celebrate/recipe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelebrateStepRoute = CelebrateStepRouteImport.update({
+  id: '/celebrate_/step',
+  path: '/celebrate/step',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CelebrateStoryRoute = CelebrateStoryRouteImport.update({
   id: '/celebrate_/story',
   path: '/celebrate/story',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
   '/celebrate/recipe': typeof CelebrateRecipeRoute
+  '/celebrate/step': typeof CelebrateStepRoute
   '/celebrate/story': typeof CelebrateStoryRoute
 }
 export interface FileRoutesByTo {
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/celebrate/home': typeof CelebrateHomeRoute
   '/celebrate/personalize': typeof CelebratePersonalizeRoute
   '/celebrate/recipe': typeof CelebrateRecipeRoute
+  '/celebrate/step': typeof CelebrateStepRoute
   '/celebrate/story': typeof CelebrateStoryRoute
 }
 export interface FileRoutesById {
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/celebrate_/home': typeof CelebrateHomeRoute
   '/celebrate_/personalize': typeof CelebratePersonalizeRoute
   '/celebrate_/recipe': typeof CelebrateRecipeRoute
+  '/celebrate_/step': typeof CelebrateStepRoute
   '/celebrate_/story': typeof CelebrateStoryRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/celebrate/home'
     | '/celebrate/personalize'
     | '/celebrate/recipe'
+    | '/celebrate/step'
     | '/celebrate/story'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/celebrate/home'
     | '/celebrate/personalize'
     | '/celebrate/recipe'
+    | '/celebrate/step'
     | '/celebrate/story'
   id:
     | '__root__'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/celebrate_/home'
     | '/celebrate_/personalize'
     | '/celebrate_/recipe'
+    | '/celebrate_/step'
     | '/celebrate_/story'
   fileRoutesById: FileRoutesById
 }
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   CelebrateHomeRoute: typeof CelebrateHomeRoute
   CelebratePersonalizeRoute: typeof CelebratePersonalizeRoute
   CelebrateRecipeRoute: typeof CelebrateRecipeRoute
+  CelebrateStepRoute: typeof CelebrateStepRoute
   CelebrateStoryRoute: typeof CelebrateStoryRoute
 }
 
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CelebrateRecipeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celebrate_/step': {
+      id: '/celebrate_/step'
+      path: '/celebrate/step'
+      fullPath: '/celebrate/step'
+      preLoaderRoute: typeof CelebrateStepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/celebrate_/story': {
       id: '/celebrate_/story'
       path: '/celebrate/story'
@@ -329,6 +349,7 @@ const rootRouteChildren: RootRouteChildren = {
   CelebrateHomeRoute: CelebrateHomeRoute,
   CelebratePersonalizeRoute: CelebratePersonalizeRoute,
   CelebrateRecipeRoute: CelebrateRecipeRoute,
+  CelebrateStepRoute: CelebrateStepRoute,
   CelebrateStoryRoute: CelebrateStoryRoute,
 }
 export const routeTree = rootRouteImport
